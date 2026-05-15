@@ -1,0 +1,19 @@
+{
+  "articles": [
+    {
+      "title": "Matilda",
+      "summary": "I am going to watch Matilda next Tuesday",
+      "date": "2026-05-15",
+      "publisher": "NK Publisher",
+      "id": "CEk-TvaKbq8"
+    },
+    {
+      "title": "Paddington",
+      "summary": "Paddington is a very famous play",
+      "date": "2026-05-15",
+      "publisher": "KK Publisher",
+      "id": "jcPmnnEM5ZI"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
