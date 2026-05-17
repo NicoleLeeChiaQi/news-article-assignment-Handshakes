@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
 
 interface FormErrors {
   title?: string;
@@ -11,28 +11,16 @@ interface FormErrors {
 
 export default function ArticleForm() {
   const navigate = useNavigate();
-  
-  // 1. Grab the dynamic 'id' parameter from the URL route (/edit/:id)
   const { id } = useParams<{ id: string }>();
-  
-  // Determine if we are creating a new article or editing an existing one
   const isEditMode = Boolean(id);
 
-  const [formData, setFormData] = useState({
-    title: '',
-    summary: '',
-    date: '',
-    publisher: ''
-  });
-
+  const [formData, setFormData] = useState({ title: '', summary: '', date: '', publisher: '' });
   const [errors, setErrors] = useState<FormErrors>({});
 
-  // 2. Fetch the existing article's data if we are in Edit Mode
   useEffect(() => {
     if (isEditMode && id) {
       axios.get(`http://localhost:3001/articles/${id}`)
         .then((response) => {
-          // Pre-populate the form state with the database values
           setFormData({
             title: response.data.title,
             summary: response.data.summary,
@@ -41,7 +29,7 @@ export default function ArticleForm() {
           });
         })
         .catch((error) => {
-          console.error('Error fetching the article for editing:', error);
+          console.error('Error fetching article:', error);
           alert('Could not retrieve article details.');
         });
     }
@@ -70,7 +58,6 @@ export default function ArticleForm() {
     e.preventDefault();
     if (!validateForm()) return;
 
-    // 3. Conditionally choose between an Axios POST (Create) or PUT (Update) request
     const apiRequest = isEditMode
       ? axios.put(`http://localhost:3001/articles/${id}`, formData)
       : axios.post('http://localhost:3001/articles', formData);
@@ -78,7 +65,6 @@ export default function ArticleForm() {
     apiRequest
       .then(() => {
         alert(isEditMode ? 'Article updated successfully!' : 'Article created successfully!');
-        
         setFormData({ title: '', summary: '', date: '', publisher: '' });
         navigate('/');
       })
@@ -88,38 +74,64 @@ export default function ArticleForm() {
       });
   };
 
+  // Uniform input style configuration object
+  const inputStyle = {
+    width: '100%',
+    padding: '10px 12px',
+    boxSizing: 'border-box' as const,
+    borderRadius: '6px',
+    border: '1px solid #cbd5e1',
+    backgroundColor: '#ffffff',
+    color: '#1e293b',
+    fontSize: '15px',
+    outline: 'none',
+    marginTop: '6px'
+  };
+
   return (
-    <div style={{ maxWidth: '500px', margin: '0 auto' }}>
-      {/* Dynamic Heading based on current mode */}
-      <h2>{isEditMode ? 'Update News Article' : 'Create News Article'}</h2>
+    <div style={{ maxWidth: '550px', margin: '0 auto' }}>
+      <h2 style={{ fontSize: '26px', fontWeight: '700', color: '#0f172a', margin: '0 0 25px 0' }}>
+        {isEditMode ? '🔧 Update News Article' : '📝 Create News Article'}
+      </h2>
       
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <label htmlFor="title"><strong>Article Title</strong></label>
-          <input type="text" id="title" name="title" value={formData.title} onChange={handleChange} />
-          {errors.title && <span style={{ color: 'red', fontSize: '14px' }}>{errors.title}</span>}
+      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <div>
+          <label htmlFor="title" style={{ color: '#334155', fontSize: '14px', fontWeight: '600' }}>Article Title</label>
+          <input type="text" id="title" name="title" value={formData.title} onChange={handleChange} style={inputStyle} placeholder="Enter dynamic headline..." />
+          {errors.title && <span style={{ color: '#ef4444', fontSize: '13px', marginTop: '4px', display: 'block' }}>{errors.title}</span>}
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <label htmlFor="summary"><strong>Article Summary</strong></label>
-          <textarea id="summary" name="summary" rows={4} value={formData.summary} onChange={handleChange} />
-          {errors.summary && <span style={{ color: 'red', fontSize: '14px' }}>{errors.summary}</span>}
+        <div>
+          <label htmlFor="summary" style={{ color: '#334155', fontSize: '14px', fontWeight: '600' }}>Article Summary</label>
+          <textarea id="summary" name="summary" rows={5} value={formData.summary} onChange={handleChange} style={inputStyle} placeholder="Write a short summary statement..." />
+          {errors.summary && <span style={{ color: '#ef4444', fontSize: '13px', marginTop: '4px', display: 'block' }}>{errors.summary}</span>}
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <label htmlFor="date"><strong>Article Date</strong></label>
-          <input type="date" id="date" name="date" value={formData.date} onChange={handleChange} />
-          {errors.date && <span style={{ color: 'red', fontSize: '14px' }}>{errors.date}</span>}
+        <div>
+          <label htmlFor="date" style={{ color: '#334155', fontSize: '14px', fontWeight: '600' }}>Article Date</label>
+          <input type="date" id="date" name="date" value={formData.date} onChange={handleChange} style={inputStyle} />
+          {errors.date && <span style={{ color: '#ef4444', fontSize: '13px', marginTop: '4px', display: 'block' }}>{errors.date}</span>}
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <label htmlFor="publisher"><strong>Publisher Of Article</strong></label>
-          <input type="text" id="publisher" name="publisher" value={formData.publisher} onChange={handleChange} />
-          {errors.publisher && <span style={{ color: 'red', fontSize: '14px' }}>{errors.publisher}</span>}
+        <div>
+          <label htmlFor="publisher" style={{ color: '#334155', fontSize: '14px', fontWeight: '600' }}>Publisher Of Article</label>
+          <input type="text" id="publisher" name="publisher" value={formData.publisher} onChange={handleChange} style={inputStyle} placeholder="e.g., Handshakes Post" />
+          {errors.publisher && <span style={{ color: '#ef4444', fontSize: '13px', marginTop: '4px', display: 'block' }}>{errors.publisher}</span>}
         </div>
 
-        <button type="submit" style={{ padding: '10px', cursor: 'pointer', background: '#007bff', color: 'white', border: 'none', borderRadius: '4px' }}>
-          {isEditMode ? 'Update Article' : 'Submit Article'}
+        <button type="submit" style={{ 
+          padding: '12px', 
+          cursor: 'pointer', 
+          background: isEditMode ? '#007bff' : '#28a745', 
+          color: 'white', 
+          border: 'none', 
+          borderRadius: '6px',
+          fontWeight: '600',
+          fontSize: '16px',
+          marginTop: '10px',
+          boxShadow: '0 2px 4px rgba(0,0,0,0.08)'
+        }}>
+          {isEditMode ? 'Update Article Details' : 'Publish Article'}
         </button>
       </form>
     </div>

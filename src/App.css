@@ -182,3 +182,40 @@
     border-right-color: var(--border);
   }
 }
+
+/* Navigation Hover Transitions */
+.nav-btn-view {
+  background: #007bff;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+.nav-btn-view:hover {
+  background: #0056b3;
+}
+.nav-btn-view:active {
+  transform: scale(0.97);
+}
+
+.nav-btn-create {
+  background: #28a745;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+.nav-btn-create:hover {
+  background: #1e7e34;
+}
+.nav-btn-create:active {
+  transform: scale(0.97);
+}
+
+/* Smooth Interactive Article Cards */
+.article-card {
+  background-color: #ffffff;
+  padding: 20px; 
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.article-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
