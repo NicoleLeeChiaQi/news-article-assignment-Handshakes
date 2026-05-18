@@ -1,18 +1,18 @@
 {
   "articles": [
     {
-      "title": "Paddington",
-      "summary": "Paddington is a very famous play",
-      "date": "2026-05-15",
-      "publisher": "KK Publisher",
-      "id": "jcPmnnEM5ZI"
+      "title": "Matilda",
+      "summary": "Matilda by Roald Dahl follows a brilliant young girl with neglectful parents and telekinetic powers. She befriends her kind teacher, Miss Honey, and uses her mind powers to defeat the tyrannical headmistress, Miss Trunchbull. Matilda ultimately gets to live happily with Miss Honey while her parents flee the country",
+      "date": "2026-05-20",
+      "publisher": "NK Publisher",
+      "id": "7ZX7pcI6iuk"
     },
     {
-      "title": "Les Miserable",
-      "summary": "This is interesting.",
-      "date": "2026-05-17",
-      "publisher": "Cambridge Theatre",
-      "id": "wk4g_M3tQ60"
+      "title": "Wicked",
+      "summary": "Wicked is a revisionist retelling of The Wizard of Oz, exploring the untold story of Elphaba (the future Wicked Witch of the West) and Galinda (the future Glinda the Good). It follows their unlikely Shiz University friendship, their shared love triangle, and their rebellion against a corrupt Wizard",
+      "date": "2026-05-05",
+      "publisher": "KK Publisher",
+      "id": "zAt-eA-iK88"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
