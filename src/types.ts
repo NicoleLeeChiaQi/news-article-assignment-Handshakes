@@ -1,7 +1,7 @@
 export interface Article {
-  id?: string;          // Or 'number' depending on your preference
+  id?: string;          
   title: string;
   summary: string;
-  date: string;         // Stored as an ISO string (YYYY-MM-DD)
+  date: string;        
   publisher: string;
 }
